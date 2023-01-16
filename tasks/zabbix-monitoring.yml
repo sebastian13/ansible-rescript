@@ -1,0 +1,38 @@
+# Zabbix Rescript Restic Backup Monitoring Scripts
+# https://github.com/sebastian13/zabbix-templates/tree/master/rescript-restic-backup
+#
+---
+- name: Install python3-pip
+  apt:
+    name: python3,python3-pip
+
+- name: Install humanfriendly on python3 for Zabbix Monitoring
+  pip:
+    name: humanfriendly
+    executable: pip3
+
+- name: Create /etc/zabbix/scripts
+  file:
+    path: /etc/zabbix/scripts
+    state: directory
+    mode: '0755'
+
+- name: Download Log Script
+  get_url:
+    url: https://raw.githubusercontent.com/sebastian13/zabbix-template-rescript/master/scripts/log-rescript.sh
+    dest: /etc/zabbix/scripts
+
+- name: Set Permissions
+  file:
+    path: /etc/zabbix/scripts/log-rescript.sh
+    mode: '755'
+
+- name: Download Discovery Script
+  get_url:
+    url: https://raw.githubusercontent.com/sebastian13/zabbix-template-rescript/master/scripts/rescript-repo-discovery.pl
+    dest: /etc/zabbix/scripts
+
+- name: Set Permissions
+  file:
+    path: /etc/zabbix/scripts/rescript-repo-discovery.pl
+    mode: '755'

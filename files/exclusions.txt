@@ -1,0 +1,13 @@
+# Ansible managed
+
+# These are the default rescript exclusions:
+/root/.cache/*
+/root/.local/share/Trash/*
+/root/.rescript/lock/*
+/root/.Trash
+/root/.Private
+/root/.ecryptfs
+
+# Write your custom exclusions below:
+.DS_Store
+.trashcan

@@ -1,0 +1,27 @@
+# Creates a config files for each repo defined
+---
+- name: Create directory repo infos
+  file:
+    path: /root/.rescript/config
+    state: directory
+    mode: 0755
+
+- name: Deploy [repo].conf
+  template:
+    src: 'repo.conf.j2'
+    dest: '/root/.rescript/config/{{ item.name }}.conf'
+    mode: 0700
+    force: yes
+    backup: yes
+  with_items: '{{ restic_repos }}'
+  no_log: true
+
+- name: Create [repo]-exclusions
+  copy:
+    src: "exclusions.txt"
+    dest: "/root/.rescript/config/{{ item.name }}-exclusions"
+    mode: 0644
+    force: yes
+    backup: yes
+  with_items: "{{ restic_repos }}"
+  no_log: true

@@ -1,0 +1,25 @@
+---
+# Default Keep Policies
+KEEP_LAST: ""
+KEEP_HOURLY: "8"
+KEEP_DAILY: "7"
+KEEP_WEEKLY: "4"
+KEEP_MONTHLY: "12"
+KEEP_YEARLY: ""
+KEEP_WITHIN: ""
+KEEP_TAG: ""
+
+# Default Optional Values
+ARCHIVE: ""
+CLEAN: "14days"
+CONFIRMATION_EMAIL: "no"
+DESTINATION: ""
+EMAIL: "mail@example.com"
+EXCLUDE_FILE: "yes"
+EXCLUDE_CACHE: "yes"
+HOST: ""
+KEEP_ARCHIVE: "yes"
+LOGGING: "yes"
+ONE_FILE_SYSTEM: ""
+SKIP_OFFICE: ""
+TAG: ""

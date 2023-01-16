@@ -1,0 +1,67 @@
+# {{ ansible_managed }}
+
+# =============================================================================== #
+#                   R E S C R I P T    C O N F I G U R A T I O N                  #
+# =============================================================================== #
+# You need to set your restic password (password for the repository), the
+# directory for your repository, the backup directory (by default the backup
+# directory is your Home directory), your tag (empty by default if used) and
+# your "keep" and "excludes" policies.
+# ------------------------------------------------------------------------------- #
+# REQUIRED VALUES
+# ------------------------------------------------------------------------------- #
+# Set restic password, repository location/directory and backup directory.
+RESTIC_PASSWORD="{{ item.RESTIC_PASSWORD | trim }}"
+RESTIC_REPO="{{ item.RESTIC_REPO | trim }}"
+BACKUP_DIR="{{ item.BACKUP_DIR | default ('') }}"
+
+# Keep Policies (leave blank if not used)
+KEEP_LAST="{{ item.KEEP_LAST | default(KEEP_LAST) }}"
+KEEP_HOURLY="{{ item.KEEP_HOURLY | default (KEEP_HOURLY) }}"
+KEEP_DAILY="{{ item.KEEP_DAILY | default (KEEP_DAILY) }}"
+KEEP_WEEKLY="{{ item.KEEP_WEEKLY | default (KEEP_WEEKLY) }}"
+KEEP_MONTHLY="{{ item.KEEP_MONTHLY | default (KEEP_MONTHLY) }}"
+KEEP_YEARLY="{{ item.KEEP_YEARLY | default (KEEP_YEARLY) }}"
+KEEP_WITHIN="{{ item.KEEP_WITHIN | default (KEEP_WITHIN) }}"
+KEEP_TAG="{{ item.KEEP_TAG | default (KEEP_TAG) }}"
+
+# AWS, B2, Azure, Google Cloud Credentials; for other not listed here you can
+# the values here (leave blank if not used).
+AWS_ID="{{ item.AWS_ID | default ('') }}"
+AWS_KEY="{{ item.AWS_KEY | default ('') }}"
+AZURE_NAME="{{ item.AZURE_NAME | default ('') }}"
+AZURE_KEY="{{ item.AZURE_KEY | default ('') }}"
+B2_ID="{{ item.B2_ID | default ('') }}"
+B2_KEY="{{ item.B2_KEY | default ('') }}"
+GOOGLE_ID="{{ item.GOOGLE_ID | default ('') }}"
+GOOGLE_CREDENTIALS="{{ item.GOOGLE_CREDENTIALS | default ('') }}"
+
+# ------------------------------------------------------------------------------- #
+# OPTIONAL VALUES
+# ------------------------------------------------------------------------------- #
+# ARCHIVE: set to "yes" to execute the "archive" command when using "rescript [repo_name]" only.
+# CLEAN: determine when it will execute forget, prune and check (i.e.: 7minutes, 7hours, 7days); by default is set to 7 days.
+# CONFIRMATION_EMAIL: set to "yes" to receive email with output when job finished successfully.
+# DESTINATION: display name of your destination in output instead of path (i.e.: Wasabi, B2, etc.).
+# EMAIL: put your email address to receive emails with output when something fails (when using cron only).
+# EXCLUDE_FILE: set "yes" to use the exclude file generated for backups (by default is set to yes; if blank it will read the exclusion file for previous versions comptability).
+# EXCLUDE_CACHE: set "yes" to use "--exclude-cache" flag for backups (by default is set to yes; if blank it will exclude cache for previous versions compatibility).
+# HOST: use a custom hostname for your snapshots.
+# KEEP_ARCHIVE: set to "yes" to keep all snapshots tagged with "archive" (by default is set to yes).
+# LOGGING: set to "yes" to save a log with output when using the automatic function (by default is set to yes).
+# ONE_FILE_SYSTEM: set to "yes" to use "--one-file-system" flag for backups.
+# SKIP_OFFICE: set to yes to temporarily exclude open (in use) "office" documents.
+# TAG: tag your snapshots.
+ARCHIVE="{{ item.ARCHIVE | default (ARCHIVE) }}"
+CLEAN="{{ item.CLEAN | default (CLEAN) }}"
+CONFIRMATION_EMAIL="{{ item.CONFIRMATION_EMAIL | default (CONFIRMATION_EMAIL) }}"
+DESTINATION="{{ item.DESTINATION | default (DESTINATION) }}"
+EMAIL="{{ item.EMAIL | default (EMAIL) }}"
+EXCLUDE_FILE="{{ item.EXCLUDE_FILE | default (EXCLUDE_FILE) }}"
+EXCLUDE_CACHE="{{ item.EXCLUDE_CACHE | default (EXCLUDE_CACHE) }}"
+HOST="{{ item.HOST | default (HOST) }}"
+KEEP_ARCHIVE="{{ item.KEEP_ARCHIVE | default (KEEP_ARCHIVE) }}"
+LOGGING="{{ item.LOGGING | default (LOGGING) }}"
+ONE_FILE_SYSTEM="{{ item.ONE_FILE_SYSTEM | default (ONE_FILE_SYSTEM) }}"
+SKIP_OFFICE="{{ item.SKIP_OFFICE | default (SKIP_OFFICE) }}"
+TAG="{{ item.TAG | default (TAG) }}"
