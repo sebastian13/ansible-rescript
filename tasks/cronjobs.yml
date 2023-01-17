@@ -12,14 +12,14 @@
 
 #
 # Set Cronjob
-- name: Create cronjob
+- name: Create Rescript Cronjobs
   cron:
     name: "Rescript Backup: {{ item.name }}"
     minute: "{{ 30 |random(seed=inventory_hostname) }}"
     hour: "{{ 5 |random(seed=inventory_hostname) }}"
     weekday: "{{ item.cron_weekday | default ('*') }}"
     day: "{{ item.cron_day | default ('*') }}"
-    job: "chronic rescript {{ item.repo_name }} {{ item.rescript_command | default ('') }} && chronic /etc/zabbix/scripts/log-rescript.sh"
+    job: "{{ item.cron_job | default ( 'chronic rescript ' + item.repo_name + ' ' + item.rescript_command if item.rescript_command is defined else '' + '&& chronic /etc/zabbix/scripts/log-rescript.sh' ) }}"
     state: "{{ item.cron_state | default ('present') }}"
   when: rescript_cronjobs is defined and packages['zabbix-sender'] is defined
   with_items: "{{ rescript_cronjobs }}"
@@ -32,7 +32,7 @@
     hour: "{{ 5 |random(seed=inventory_hostname) }}"
     weekday: "{{ item.cron_weekday | default ('*') }}"
     day: "{{ item.cron_day | default ('*') }}"
-    job: "chronic rescript {{ item.repo_name }} {{ item.rescript_command | default ('') }}"
+    job: "{{ item.cron_job | default ( 'chronic rescript ' + item.repo_name + ' ' + item.rescript_command if item.rescript_command is defined else '' ) }}"
     state: "{{ item.cron_state | default ('present') }}"
   when: rescript_cronjobs is defined and packages['zabbix-sender'] is not defined
   with_items: "{{ rescript_cronjobs }}"
