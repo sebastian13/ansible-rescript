@@ -15,6 +15,9 @@ RESTIC_PASSWORD="{{ item.RESTIC_PASSWORD | trim }}"
 RESTIC_REPO="{{ item.RESTIC_REPO | trim }}"
 BACKUP_DIR="{{ item.BACKUP_DIR | default ('') }}"
 
+# Set the restic compression mode
+RESTIC_COMPRESSION="{{ item.COMPRESSION_MODE | default (COMPRESSION_MODE) }}"
+
 # Keep Policies (leave blank if not used)
 KEEP_LAST="{{ item.KEEP_LAST | default(KEEP_LAST) }}"
 KEEP_HOURLY="{{ item.KEEP_HOURLY | default (KEEP_HOURLY) }}"
