@@ -11,33 +11,33 @@
 # REQUIRED VALUES
 # ------------------------------------------------------------------------------- #
 # Set restic password, repository location/directory and backup directory.
-RESTIC_PASSWORD="{{ item.RESTIC_PASSWORD | trim }}"
-RESTIC_REPO="{{ item.RESTIC_REPO | trim }}"
-BACKUP_DIR="{{ item.BACKUP_DIR | default ('') }}"
+RESTIC_PASSWORD="{{ item.restic_password | trim }}"
+RESTIC_REPO="{{ item.restic_repo | trim }}"
+BACKUP_DIR="{{ item.rescript_backup_dir | default ('') }}"
 
 # Set the restic compression mode
-RESTIC_COMPRESSION="{{ item.COMPRESSION_MODE | default (COMPRESSION_MODE) }}"
+RESTIC_COMPRESSION="{{ item.restic_compression_mode | default (restic_compression_mode) }}"
 
 # Keep Policies (leave blank if not used)
-KEEP_LAST="{{ item.KEEP_LAST | default(KEEP_LAST) }}"
-KEEP_HOURLY="{{ item.KEEP_HOURLY | default (KEEP_HOURLY) }}"
-KEEP_DAILY="{{ item.KEEP_DAILY | default (KEEP_DAILY) }}"
-KEEP_WEEKLY="{{ item.KEEP_WEEKLY | default (KEEP_WEEKLY) }}"
-KEEP_MONTHLY="{{ item.KEEP_MONTHLY | default (KEEP_MONTHLY) }}"
-KEEP_YEARLY="{{ item.KEEP_YEARLY | default (KEEP_YEARLY) }}"
-KEEP_WITHIN="{{ item.KEEP_WITHIN | default (KEEP_WITHIN) }}"
-KEEP_TAG="{{ item.KEEP_TAG | default (KEEP_TAG) }}"
+KEEP_LAST="{{ item.rescript_keep_last | default(rescript_keep_last) }}"
+KEEP_HOURLY="{{ item.rescript_keey_hourly | default (rescript_keey_hourly) }}"
+KEEP_DAILY="{{ item.rescript_keep_daily | default (rescript_keep_daily) }}"
+KEEP_WEEKLY="{{ item.rescript_keep_weekly | default (rescript_keep_weekly) }}"
+KEEP_MONTHLY="{{ item.rescript_keep_monthly | default (rescript_keep_monthly) }}"
+KEEP_YEARLY="{{ item.rescript_keep_yearly | default (rescript_keep_yearly) }}"
+KEEP_WITHIN="{{ item.rescript_keep_within | default (rescript_keep_within) }}"
+KEEP_TAG="{{ item.rescript_keep_tag | default (rescript_keep_tag) }}"
 
 # AWS, B2, Azure, Google Cloud Credentials; for other not listed here you can
 # the values here (leave blank if not used).
-AWS_ID="{{ item.AWS_ID | default ('') }}"
-AWS_KEY="{{ item.AWS_KEY | default ('') }}"
-AZURE_NAME="{{ item.AZURE_NAME | default ('') }}"
-AZURE_KEY="{{ item.AZURE_KEY | default ('') }}"
-B2_ID="{{ item.B2_ID | default ('') }}"
-B2_KEY="{{ item.B2_KEY | default ('') }}"
-GOOGLE_ID="{{ item.GOOGLE_ID | default ('') }}"
-GOOGLE_CREDENTIALS="{{ item.GOOGLE_CREDENTIALS | default ('') }}"
+AWS_ID="{{ item.restic_aws_id | default ('') }}"
+AWS_KEY="{{ item.restic_aws_key | default ('') }}"
+AZURE_NAME="{{ item.restic_azure_name | default ('') }}"
+AZURE_KEY="{{ item.restic_azure_key | default ('') }}"
+B2_ID="{{ item.restic_b2_id | default ('') }}"
+B2_KEY="{{ item.restic_b2_key | default ('') }}"
+GOOGLE_ID="{{ item.restic_google_id | default ('') }}"
+GOOGLE_CREDENTIALS="{{ item.restic_google_credentials | default ('') }}"
 
 # ------------------------------------------------------------------------------- #
 # OPTIONAL VALUES
@@ -55,16 +55,17 @@ GOOGLE_CREDENTIALS="{{ item.GOOGLE_CREDENTIALS | default ('') }}"
 # ONE_FILE_SYSTEM: set to "yes" to use "--one-file-system" flag for backups.
 # SKIP_OFFICE: set to yes to temporarily exclude open (in use) "office" documents.
 # TAG: tag your snapshots.
-ARCHIVE="{{ item.ARCHIVE | default (ARCHIVE) }}"
-CLEAN="{{ item.CLEAN | default (CLEAN) }}"
-CONFIRMATION_EMAIL="{{ item.CONFIRMATION_EMAIL | default (CONFIRMATION_EMAIL) }}"
-DESTINATION="{{ item.DESTINATION | default (DESTINATION) }}"
-EMAIL="{{ item.EMAIL | default (EMAIL) }}"
-EXCLUDE_FILE="{{ item.EXCLUDE_FILE | default (EXCLUDE_FILE) }}"
-EXCLUDE_CACHE="{{ item.EXCLUDE_CACHE | default (EXCLUDE_CACHE) }}"
-HOST="{{ item.HOST | default (HOST) }}"
-KEEP_ARCHIVE="{{ item.KEEP_ARCHIVE | default (KEEP_ARCHIVE) }}"
-LOGGING="{{ item.LOGGING | default (LOGGING) }}"
-ONE_FILE_SYSTEM="{{ item.ONE_FILE_SYSTEM | default (ONE_FILE_SYSTEM) }}"
-SKIP_OFFICE="{{ item.SKIP_OFFICE | default (SKIP_OFFICE) }}"
-TAG="{{ item.TAG | default (TAG) }}"
+
+ARCHIVE="{{ item.rescript_archive | default (rescript_archive) }}"
+CLEAN="{{ item.rescript_clean | default (rescript_clean) }}"
+CONFIRMATION_EMAIL="{{ item.rescript_confirmation_email | default (rescript_confirmation_email) }}"
+DESTINATION="{{ item.rescript_destination | default (rescript_destination) }}"
+EMAIL="{{ item.rescript_email | default(rescript_email) }}"
+EXCLUDE_FILE="{{ item.rescript_exclude_file | default (rescript_exclude_file) }}"
+EXCLUDE_CACHE="{{ item.rescript_exclude_cache | default (rescript_exclude_cache) }}"
+HOST="{{ item.rescript_host | default (rescript_host) }}"
+KEEP_ARCHIVE="{{ item.rescript_keep_archive | default (rescript_keep_archive) }}"
+LOGGING="{{ item.rescript_logging | default (rescript_logging) }}"
+ONE_FILE_SYSTEM="{{ item.rescript_one_file_system | default (rescript_one_file_system) }}"
+SKIP_OFFICE="{{ item.rescript_skip_office | default (rescript_skip_office) }}"
+TAG="{{ item.rescript_tag | default (rescript_tag) }}"
