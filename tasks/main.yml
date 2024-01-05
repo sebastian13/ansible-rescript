@@ -32,15 +32,15 @@
   when: packages['zabbix-sender'] is defined
 
 - name: Add Rescript Zabbix Monitoring Scripts
-  include: 'zabbix-monitoring.yml'
+  include_tasks: 'zabbix-monitoring.yml'
   when: packages['zabbix-sender'] is defined
 
 #
 # Create config files
 - name: Configure repos
-  include: 'config.yml'
+  include_tasks: 'config.yml'
 
 #
 # Manage Cronjobs
 - name: Manage Cronjobs
-  include: 'cronjobs.yml'
+  include_tasks: 'cronjobs.yml'
