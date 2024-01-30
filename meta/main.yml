@@ -1,0 +1,19 @@
+---
+
+galaxy_info:
+  role_name: "rescript"
+  author: "Sebastian Plocek"
+  description: "Deploys rescript, a bash shell wrapper for Restic."
+  company: "PG IT Consulting eG"
+  min_ansible_version: 2.1
+
+  platforms:
+    - name: "Debian"
+      versions:
+        - "bullseye"
+        - "bookworm"
+
+  galaxy_tags:
+    - "backup"
+    - "restic"
+    - "rescript"
