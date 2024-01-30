@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================== #
-version="4.6"
+version="4.7"
 function usage {
 cat <<EOF
 Name        : rescript
@@ -139,7 +139,7 @@ function job_done {
   fi
   if [[ "$CONFIRMATION_EMAIL" = "y" || "$CONFIRMATION_EMAIL" = "yes" ]] ; then
     if [[ -n "$EMAIL" ]] ; then
-      if [[ "$(which mail)" ]] ; then
+      if [[ "$(command -v mail)" ]] ; then
         if [[ "$int" = "false" ]] ; then
           if [[ -e "$log" ]] ; then
             logmessage="Logfile: $log"
@@ -174,7 +174,7 @@ function report_errors {
       echo -e "$error_message"
     fi
     if [[ -n "$EMAIL" ]] ; then
-      if [[ "$(which mail)" ]] ; then
+      if [[ "$(command -v mail)" ]] ; then
         if [[ "$int" = "false" ]] ; then
           time_end
           if [[ -e "$log" ]] ; then
@@ -228,7 +228,7 @@ function opsys {
         os_vers="$(getprop ro.build.version.release)"
         echo -e "$os" "$os_vers"
       else
-        if [[ $(which lsb_release) ]] ; then
+        if [[ $(command -v lsb_release) ]] ; then
           lsb_release -ds
         else
           cat /etc/issue.net
@@ -841,7 +841,7 @@ function install {
 }
 
 function update {
-  if [[ ! $(which wget) ]] ; then
+  if [[ ! $(command -v wget) ]] ; then
     echo "***$(basename $0) warning***"
     echo "[wget] not found..."
     echo ""
@@ -858,7 +858,7 @@ function update {
   rescript_latest="$tmp_dir/rescript"
   trap 'rm -rf "$rescript_latest" 2> /dev/null' INT QUIT TERM EXIT
 
-  if [[ "$(sed '3!d' "$(which rescript)")" = "$(sed '3!d' "$rescript_latest")" ]] ; then
+  if [[ "$(sed '3!d' "$(command -v rescript)")" = "$(sed '3!d' "$rescript_latest")" ]] ; then
     echo "You are already running rescript $version, which is the latest version."
     exit 0
   else
@@ -866,12 +866,12 @@ function update {
     read -rp "rescript version $(sed '3!d' "$rescript_latest" | sed -e 's/version=//g') is available; do you want to install it? (y/n): " updater
     case "$updater" in
       y|yes)
-        if [[ $(which rescript) == /usr/bin/rescript || $(which rescript) == /bin/rescript || $(which rescript) == /usr/local/bin/rescript ]] ; then
+        if [[ $(command -v rescript) == /usr/bin/rescript || $(command -v rescript) == /bin/rescript || $(command -v rescript) == /usr/local/bin/rescript ]] ; then
           if [[ "$(whoami)" = "root" ]] ; then
-            mv "$rescript_latest" "$(which rescript)"
+            mv "$rescript_latest" "$(command -v rescript)"
             echo "Rescript have been updated to the latest version!"
           else
-            echo "Rescript is located at $(which rescript)."
+            echo "Rescript is located at $(command -v rescript)."
             echo "To update in this location you need to run [update] again as [root]:"
             echo ""
             echo "  sudo rescript update"
@@ -881,7 +881,7 @@ function update {
           fi
         else
           chmod 700 "$rescript_latest"
-          mv "$rescript_latest" "$(which rescript)"
+          mv "$rescript_latest" "$(command -v rescript)"
           echo "Rescript have been updated to the latest version!"
         fi
         ;;
@@ -1526,7 +1526,7 @@ archiver_latest="$tmp_dir/archive_latest"
 archiver_old="$tmp_dir/archive_old"
 
 function archive {
-  if [[ ! $(which rsync) ]] ; then
+  if [[ ! $(command -v rsync) ]] ; then
     echo "***$(basename "$0") warning***"
     echo "[rsync] not found..."
     echo ""
@@ -1767,10 +1767,10 @@ function automatic {
         if [[ -n "$CLEAN" ]] ; then
           case "$unix_name" in
             Linux|GNU)
-              date -d now+"$CLEAN" +%s 2>/dev/null > "$config_dir/$repo-datefile"
+              date -d now+"$CLEAN" 2>/dev/null > "$config_dir/$repo-datefile"
               ;;
             *)
-              gdate -d now+"$CLEAN" +%s 2>/dev/null > "$config_dir/$repo-datefile"
+              gdate -d now+"$CLEAN" 2>/dev/null > "$config_dir/$repo-datefile"
               ;;
           esac
           exit_code="$?"
@@ -1794,7 +1794,7 @@ function automatic {
       fi
   fi
   # Stats
-  # statinfo
+  statinfo
   # Time and Runtime
   time_end
   if [[ -n "$CLEAN" && -z "${policies[*]}" ]] ; then
@@ -2172,11 +2172,11 @@ function now_next {
   case "$unix_name" in
     Linux|GNU)
       now=$(date +"%s")
-      next=$(cat "$config_dir/$repo-datefile")
+      next=$(date -f "$config_dir/$repo-datefile" "+%s")
       ;;
     *)
       now=$(gdate +"%s")
-      next=$(cat "$config_dir/$repo-datefile")
+      next=$(gdate -f "$config_dir/$repo-datefile" "+%s")
       ;;
   esac
 }
@@ -2344,7 +2344,7 @@ function unlocker {
 # ============================================================== #
 # Call Commands and Functions Related to a Repository            #
 # ============================================================== #
-if [[ ! $(which restic) ]] ; then
+if [[ ! $(command -v restic) ]] ; then
   echo "***$(basename $0) warning***"
   echo "[restic] not found..."
   echo ""
@@ -2374,7 +2374,7 @@ case "$unix_name" in
     if [[ -d "/usr/local/opt/gnu-getopt/bin" ]] ; then
       getopt="/usr/local/opt/gnu-getopt/bin/getopt"
     else
-      getopt=$(which getopt)
+      getopt=$(command -v getopt)
     fi
     output="/dev/stdout" ;;
   Linux) 
@@ -2383,8 +2383,8 @@ case "$unix_name" in
     else
       output="/dev/stdout"
     fi
-    getopt=$(which getopt) ;;
-  *) getopt=$(which getopt) ; output="/dev/stdout" ;;
+    getopt=$(command -v getopt) ;;
+  *) getopt=$(command -v getopt) ; output="/dev/stdout" ;;
 esac
 cmd="$2"
 options=( "${@:3}" )
