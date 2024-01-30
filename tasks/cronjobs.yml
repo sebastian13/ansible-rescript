@@ -15,8 +15,8 @@
 - name: Create Rescript Cronjobs
   cron:
     name: "Rescript Backup: {{ item.name }}"
-    minute: "{{ 30 |random(seed=inventory_hostname) }}"
-    hour: "{{ 5 |random(seed=inventory_hostname) }}"
+    minute: "{{ item.cron_minute | default( 59 | random(seed=inventory_hostname)) }}"
+    hour: "{{ item.cron_hour | default( 5 | random(seed=inventory_hostname)) }}"
     weekday: "{{ item.cron_weekday | default ('*') }}"
     day: "{{ item.cron_day | default ('*') }}"
     job: "{{ item.cron_job | default ( 'chronic rescript ' + item.repo_name + ' ' + item.rescript_command if item.rescript_command is defined else '' + '&& chronic /etc/zabbix/scripts/log-rescript.sh' ) }}"
@@ -28,8 +28,8 @@
 - name: Create cronjob
   cron:
     name: "Rescript Backup: {{ item.name }}"
-    minute: "{{ 30 |random(seed=inventory_hostname) }}"
-    hour: "{{ 5 |random(seed=inventory_hostname) }}"
+    minute: "{{ item.cron_minute | default( 59 | random(seed=inventory_hostname)) }}"
+    hour: "{{ item.cron_hour | default( 5 | random(seed=inventory_hostname)) }}"
     weekday: "{{ item.cron_weekday | default ('*') }}"
     day: "{{ item.cron_day | default ('*') }}"
     job: "{{ item.cron_job | default ( 'chronic rescript ' + item.repo_name + ' ' + item.rescript_command if item.rescript_command is defined else '' ) }}"
