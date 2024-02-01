@@ -33,12 +33,24 @@ This role deploys [rescript](https://gitlab.com/sulfuror/rescript.sh), a bash sh
               $ANSIBLE_VAULT;1.1;AES256
               32356139333035363...33665666403232353
         rescript_email: "...@example.com"
+
     rescript_cronjobs:
-      - name: example-blocklevel-cleanup
+      - name: example-blocklevel-backup
         repo_name: 'example-blocklevel-repo'
-        cron_hour: '18'
-        cron_weekday: 'SUN'
-        rescript_command: 'cleanup --email --log'
+        cron_hour: '03'
+        cron_weekday: 'MON-FRI'
+```
+
+Passwords and secret keys should be encrypted using ansible-vault
+
+```bash
+ansible-vault encrypt_string --stdin-name 'RESTIC_PASSWORD'
+```
+
+The playbook must then be run as follows:
+
+```bash
+ansible-playbook rescript.yml --ask-vault-pass
 ```
 
 ## Ressources
