@@ -1,6 +1,12 @@
 ---
 - name: Install dependencies
-  apt: pkg=rsync,wget,moreutils state=latest
+  ansible.builtin.package:
+    name: 
+      - bash
+      - rsync
+      - wget
+      - moreutils
+    state: latest
   become: true
 
 #- name: Download rescript
