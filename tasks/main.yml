@@ -6,10 +6,10 @@
       - rsync
       - wget
       - moreutils
-    state: latest
+    state: present
   become: true
 
-#- name: Download rescript
+# - name: Download rescript
 #  get_url:
 #    url: https://gitlab.com/sulfuror/rescript.sh/raw/master/rescript
 #    dest: /usr/bin/rescript
@@ -19,6 +19,7 @@
   ansible.builtin.copy:
     src: rescript.sh
     dest: /usr/bin/rescript
+    mode: "0700"
   become: true
 
 - name: Change permissions
@@ -27,7 +28,7 @@
     mode: "700"
 
 #
-# Install Zabbix-Monitoring Script if Zabbix-Sender is installed
+# Install Zabbix monitoring script if zabbix-sender is installed
 - name: "Check installed packages"
   ansible.builtin.package_facts:
     manager: "auto"
@@ -47,6 +48,6 @@
   ansible.builtin.include_tasks: "config.yml"
 
 #
-# Manage Cronjobs
+# Manage cronjobs
 - name: Manage Cronjobs
   ansible.builtin.include_tasks: "cronjobs.yml"
