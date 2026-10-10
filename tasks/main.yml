@@ -1,7 +1,7 @@
 ---
 - name: Install dependencies
   ansible.builtin.package:
-    name: 
+    name:
       - bash
       - rsync
       - wget
@@ -16,37 +16,37 @@
 #  become: true
 
 - name: Upload rescript
-  copy:
+  ansible.builtin.copy:
     src: rescript.sh
     dest: /usr/bin/rescript
   become: true
 
 - name: Change permissions
-  file:
+  ansible.builtin.file:
     path: /usr/bin/rescript
-    mode: '700'
+    mode: "700"
 
 #
 # Install Zabbix-Monitoring Script if Zabbix-Sender is installed
 - name: "Check installed packages"
-  package_facts:
+  ansible.builtin.package_facts:
     manager: "auto"
 
 - name: Debug zabbix-sender
-  debug:
-    msg: 'Zabbix-Sender is installed' 
+  ansible.builtin.debug:
+    msg: "Zabbix-Sender is installed"
   when: packages['zabbix-sender'] is defined
 
 - name: Add Rescript Zabbix Monitoring Scripts
-  include_tasks: 'zabbix-monitoring.yml'
+  ansible.builtin.include_tasks: "zabbix-monitoring.yml"
   when: packages['zabbix-sender'] is defined
 
 #
 # Create config files
 - name: Configure repos
-  include_tasks: 'config.yml'
+  ansible.builtin.include_tasks: "config.yml"
 
 #
 # Manage Cronjobs
 - name: Manage Cronjobs
-  include_tasks: 'cronjobs.yml'
+  ansible.builtin.include_tasks: "cronjobs.yml"

@@ -1,27 +1,27 @@
 # Creates a config files for each repo defined
 ---
 - name: Create directory repo infos
-  file:
+  ansible.builtin.file:
     path: /root/.rescript/config
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Deploy [repo].conf
-  template:
-    src: 'repo.conf.j2'
-    dest: '/root/.rescript/config/{{ item.name }}.conf'
-    mode: 0700
-    force: yes
-    backup: yes
-  with_items: '{{ restic_repos }}'
+  ansible.builtin.template:
+    src: "repo.conf.j2"
+    dest: "/root/.rescript/config/{{ item.name }}.conf"
+    mode: "0700"
+    force: true
+    backup: true
+  with_items: "{{ restic_repos }}"
   no_log: true
 
 - name: Create [repo]-exclusions
-  copy:
+  ansible.builtin.copy:
     src: "exclusions.txt"
     dest: "/root/.rescript/config/{{ item.name }}-exclusions"
-    mode: 0644
-    force: yes
-    backup: yes
+    mode: "0644"
+    force: true
+    backup: true
   with_items: "{{ restic_repos }}"
   no_log: true

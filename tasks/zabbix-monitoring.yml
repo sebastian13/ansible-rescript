@@ -3,31 +3,31 @@
 #
 ---
 - name: Install humanfriendly on python3 for Zabbix Monitoring
-  apt:
+  ansible.builtin.apt:
     name: python3-humanfriendly
 
 - name: Create /etc/zabbix/scripts
-  file:
+  ansible.builtin.file:
     path: /etc/zabbix/scripts
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Download Log Script
-  get_url:
+  ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/sebastian13/zabbix-template-rescript/master/scripts/log-rescript.sh
     dest: /etc/zabbix/scripts
 
 - name: Set Permissions
-  file:
+  ansible.builtin.file:
     path: /etc/zabbix/scripts/log-rescript.sh
-    mode: '755'
+    mode: "755"
 
 - name: Download Discovery Script
-  get_url:
+  ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/sebastian13/zabbix-template-rescript/master/scripts/rescript-repo-discovery.pl
     dest: /etc/zabbix/scripts
 
 - name: Set Permissions
-  file:
+  ansible.builtin.file:
     path: /etc/zabbix/scripts/rescript-repo-discovery.pl
-    mode: '755'
+    mode: "755"

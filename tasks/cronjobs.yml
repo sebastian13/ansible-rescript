@@ -1,7 +1,8 @@
+---
 #
 # Remove old Cronjobs
 - name: Remove old cronjobs
-  cron:
+  ansible.builtin.cron:
     name: "{{ item }}"
     state: absent
   with_items:
@@ -13,27 +14,28 @@
 #
 # Set Cronjob
 - name: Create Rescript Cronjobs
-  cron:
+  ansible.builtin.cron:
     name: "Rescript Backup: {{ item.name }}"
-    minute: "{{ item.cron_minute | default( 59 | random(seed=inventory_hostname)) }}"
-    hour: "{{ item.cron_hour | default( 5 | random(seed=inventory_hostname)) }}"
-    weekday: "{{ item.cron_weekday | default ('*') }}"
-    day: "{{ item.cron_day | default ('*') }}"
-    job: "{{ item.cron_job | default ( 'chronic rescript ' + item.repo_name + ' ' + item.rescript_command if item.rescript_command is defined else '' + '&& chronic /etc/zabbix/scripts/log-rescript.sh' ) }}"
-    state: "{{ item.cron_state | default ('present') }}"
+    minute: "{{ item.cron_minute | default(59 | random(seed=inventory_hostname)) }}"
+    hour: "{{ item.cron_hour | default(5 | random(seed=inventory_hostname)) }}"
+    weekday: "{{ item.cron_weekday | default('*') }}"
+    day: "{{ item.cron_day | default('*') }}"
+    job: "{{ item.cron_job | default('chronic rescript ' + item.repo_name + ' ' + item.rescript_command if item.rescript_command is defined else '' + '&& chronic
+      /etc/zabbix/scripts/log-rescript.sh') }}"
+    state: "{{ item.cron_state | default('present') }}"
   when: rescript_cronjobs is defined and packages['zabbix-sender'] is defined
   with_items: "{{ rescript_cronjobs }}"
   #no_log: true
 
 - name: Create cronjob
-  cron:
+  ansible.builtin.cron:
     name: "Rescript Backup: {{ item.name }}"
-    minute: "{{ item.cron_minute | default( 59 | random(seed=inventory_hostname)) }}"
-    hour: "{{ item.cron_hour | default( 5 | random(seed=inventory_hostname)) }}"
-    weekday: "{{ item.cron_weekday | default ('*') }}"
-    day: "{{ item.cron_day | default ('*') }}"
-    job: "{{ item.cron_job | default ( 'chronic rescript ' + item.repo_name + ' ' + item.rescript_command if item.rescript_command is defined else '' ) }}"
-    state: "{{ item.cron_state | default ('present') }}"
+    minute: "{{ item.cron_minute | default(59 | random(seed=inventory_hostname)) }}"
+    hour: "{{ item.cron_hour | default(5 | random(seed=inventory_hostname)) }}"
+    weekday: "{{ item.cron_weekday | default('*') }}"
+    day: "{{ item.cron_day | default('*') }}"
+    job: "{{ item.cron_job | default('chronic rescript ' + item.repo_name + ' ' + item.rescript_command if item.rescript_command is defined else '') }}"
+    state: "{{ item.cron_state | default('present') }}"
   when: rescript_cronjobs is defined and packages['zabbix-sender'] is not defined
   with_items: "{{ rescript_cronjobs }}"
   #no_log: true
